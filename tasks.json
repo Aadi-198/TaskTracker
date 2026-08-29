@@ -1,0 +1,14 @@
+[
+    {
+        "id": 1,
+        "description": "milk",
+        "status": "todo",
+        "createdAt": "2026-08-29T16:59:32.542976"
+    },
+    {
+        "id": 2,
+        "description": "bread",
+        "status": "todo",
+        "createdAt": "2026-08-29T17:00:13.113487"
+    }
+]

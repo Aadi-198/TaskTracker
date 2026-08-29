@@ -1,5 +1,10 @@
 #import required libraries
 import sys
+import json
+from pathlib import Path
+from datetime import datetime
+
+tasks_file = Path("tasks.json") #define the file where all the tasks are saved
 
 print("Arguments passed:", sys.argv)
 
@@ -10,8 +15,26 @@ if len(sys.argv) > 1:
     if command == "add":
         #Check if user provided the suitable task to be added after the command
         if len(sys.argv) > 2:
-            tasks = sys.argv[2]
-            print(f"Succesfully added task(s): {tasks}")
+            task = sys.argv[2]
+            if tasks_file.exists():
+                contents = tasks_file.read_text()
+                list = json.loads(contents)
+                print("Loaded tasks", list)
+                print("Contents: ", contents)
+            else:
+                print("No file exists, starting with empty tasks.")
+                list = []
+            new_id = len(list) + 1
+            now = datetime.now().isoformat()
+            new_task = {
+                "id": new_id,
+                "description": task,
+                "status": "todo",
+                "createdAt": now
+                }
+            list.append(new_task)
+            tasks_file.write_text(json.dumps(list, indent=4))
+            print(f"Succesfully added task(s): {task}")
         else:
             print("Argument reqired: tasks")
     elif command == "list":     #Current function: null
