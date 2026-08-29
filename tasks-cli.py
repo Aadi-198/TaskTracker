@@ -8,8 +8,13 @@ if len(sys.argv) > 1:
     command = sys.argv[1]   #if script has a command, save it in a var called command
     # define what commands do
     if command == "add":
-        print("You want to add an task")
-    elif command == "list":
+        #Check if user provided the suitable task to be added after the command
+        if len(sys.argv) > 2:
+            tasks = sys.argv[2]
+            print(f"Succesfully added task(s): {tasks}")
+        else:
+            print("Argument reqired: tasks")
+    elif command == "list":     #Current function: null
         print("You want to see the list")
     else:
         print(f"{command}: command not found")
