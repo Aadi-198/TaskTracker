@@ -37,8 +37,13 @@ if len(sys.argv) > 1:
             print(f"Succesfully added task(s): {task}")
         else:
             print("Argument reqired: tasks")
-    elif command == "list":     #Current function: null
-        print("You want to see the list")
+    elif command == "list":
+        if tasks_file:
+            list = json.loads(tasks_file.read_text())
+        else:
+            print("No data about tasks exists !")
+        for task in list:
+            print(f"[{task['id']}] {task['description']} ({task['status']})")
     else:
         print(f"{command}: command not found")
 else:
