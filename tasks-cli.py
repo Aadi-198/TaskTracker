@@ -6,7 +6,7 @@ from datetime import datetime
 
 tasks_file = Path("tasks.json") #define the file where all the tasks are saved
 
-print("Arguments passed:", sys.argv)
+#print("Arguments passed:", sys.argv)
 
 # check if the typed script has an command and an input
 if len(sys.argv) > 1:
@@ -44,6 +44,12 @@ if len(sys.argv) > 1:
             print("No data about tasks exists !")
         for task in list:
             print(f"[{task['id']}] {task['description']} ({task['status']})")
+    elif command == "delete":
+        print("You want to delete a task!")
+        if len(sys.argv) > 2:
+            new_id = sys.argv[2]
+            print(f"so you want to delete {new_id}")
+            #json.loads I can't remember the sysntax to load the task, let me take help :)
     else:
         print(f"{command}: command not found")
 else:
