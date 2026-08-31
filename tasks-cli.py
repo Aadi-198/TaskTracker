@@ -1,21 +1,9 @@
 #import required libraries
 import sys
 import json
-from pathlib import Path
 from datetime import datetime
 
-tasks_file = Path("tasks.json") #define the file where all the tasks are saved
-
-#DRY appoach, define blocks -
-def load_tasks():
-    if tasks_file.exists():
-        contents = tasks_file.read_text()
-        task_list = json.loads(contents)
-        #print("Contents: ", contents)  enable if you want contents to be printed everytime
-        return task_list
-    else:
-        print("No file exists, starting with empty tasks.")
-        return []
+from db import tasks_file, load_tasks, check_ID
 
 #print("Arguments passed:", sys.argv)
 
@@ -47,14 +35,15 @@ if len(sys.argv) > 1:
         for task in task_list:
             print(f"[{task['id']}] {task['description']} ({task['status']})")
     elif command == "delete":
-        print("You want to delete a task!")
-        if len(sys.argv) > 2:
-            task_id = int(sys.argv[2])
+            task_id = check_ID()
             task_list = load_tasks()
+            task_list = [t for t in task_list if t["id"] != task_id]
             tasks_file.write_text(json.dumps(task_list, indent=4))
             print(f"Successfully deleted task with ID: {task_id}")
-        else:
-            print("Argument required: task ID")
+    elif command == "update":
+        print("You want to update an task")
+        task_id = check_ID()
+        task_list = load_tasks()
     else:
         print(f"{command}: command not found")
 else:
