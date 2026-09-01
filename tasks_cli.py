@@ -3,7 +3,7 @@ import sys
 import json
 from datetime import datetime
 
-from db import tasks_file, load_tasks, check_ID
+from db import tasks_file, load_tasks, check_ID, task_exists
 
 #print("Arguments passed:", sys.argv)
 
@@ -36,14 +36,20 @@ if len(sys.argv) > 1:
             print(f"[{task['id']}] {task['description']} ({task['status']})")
     elif command == "delete":
             task_id = check_ID()
-            task_list = load_tasks()
-            task_list = [t for t in task_list if t["id"] != task_id]
-            tasks_file.write_text(json.dumps(task_list, indent=4))
-            print(f"Successfully deleted task with ID: {task_id}")
+            if not task_exists(task_id):
+                sys.exit()  
+            else:
+                task_list = load_tasks()
+                task_list = [t for t in task_list if t["id"] != task_id]
+                tasks_file.write_text(json.dumps(task_list, indent=4))
+                print(f"Successfully deleted task with ID: {task_id}")
     elif command == "update":
-        print("You want to update an task")
         task_id = check_ID()
-        task_list = load_tasks()
+        if not task_exists(task_id):
+            sys.exit()  
+        else:
+            print(f"You want to update the task with id {task_id}")
+            task_list = load_tasks()
     else:
         print(f"{command}: command not found")
 else:

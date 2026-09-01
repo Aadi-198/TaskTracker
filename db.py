@@ -25,3 +25,11 @@ def check_ID():
     else:
         print("Argument required: Task ID")
         sys.exit()
+
+def task_exists(task_id):
+    tasks_list = load_tasks()
+    for task in tasks_list:
+        if task["id"] == task_id:
+            return True
+    print("This task doesn't exist")
+    return False
