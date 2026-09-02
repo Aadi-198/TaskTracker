@@ -4,7 +4,7 @@ from pathlib import Path
 
 tasks_file = Path("tasks.json") #define the file where all the tasks are saved
 
-#DRY appoach, define blocks -
+#DRY approach, define blocks -
 def load_tasks():
     if tasks_file.exists():
         contents = tasks_file.read_text()

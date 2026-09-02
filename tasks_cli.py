@@ -27,9 +27,9 @@ if len(sys.argv) > 1:
                 }
             task_list.append(new_task)
             tasks_file.write_text(json.dumps(task_list, indent = 4))
-            print(f"Succesfully added task(s): {task}")
+            print(f"Successfully added task(s): {task}")
         else:
-            print("Argument reqired: tasks")
+            print("Argument required: tasks")
     elif command == "list":
         task_list = load_tasks()
         for task in task_list:
@@ -56,7 +56,7 @@ if len(sys.argv) > 1:
                         task["createdAt"] = datetime.now().isoformat()
                         task["description"] = new_description
                         tasks_file.write_text(json.dumps(task_list, indent = 4))
-                        print(f"Succesfully updated task {task_id} to {new_description}")
+                        print(f"Successfully updated task {task_id} to {new_description}")
             else:
                 print("Argument required: new description")
     else:
