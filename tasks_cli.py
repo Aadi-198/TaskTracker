@@ -16,7 +16,7 @@ if len(sys.argv) > 1:
         if len(sys.argv) > 2:
             task = sys.argv[2]
             task_list = load_tasks()
-            max_id = max([t["id"] for t in task_list], default=0)
+            max_id = max([t["id"] for t in task_list], default = 0)
             new_id = max_id + 1
             now = datetime.now().isoformat()
             new_task = {
@@ -26,7 +26,7 @@ if len(sys.argv) > 1:
                 "createdAt": now
                 }
             task_list.append(new_task)
-            tasks_file.write_text(json.dumps(task_list, indent=4))
+            tasks_file.write_text(json.dumps(task_list, indent = 4))
             print(f"Succesfully added task(s): {task}")
         else:
             print("Argument reqired: tasks")
@@ -41,15 +41,24 @@ if len(sys.argv) > 1:
             else:
                 task_list = load_tasks()
                 task_list = [t for t in task_list if t["id"] != task_id]
-                tasks_file.write_text(json.dumps(task_list, indent=4))
+                tasks_file.write_text(json.dumps(task_list, indent = 4))
                 print(f"Successfully deleted task with ID: {task_id}")
     elif command == "update":
         task_id = check_ID()
         if not task_exists(task_id):
             sys.exit()  
         else:
-            print(f"You want to update the task with id {task_id}")
-            task_list = load_tasks()
+            if len(sys.argv) > 3:
+                new_description = sys.argv[3]
+                task_list = load_tasks()
+                for task in task_list:
+                    if task["id"] == task_id:
+                        task["createdAt"] = datetime.now().isoformat()
+                        task["description"] = new_description
+                        tasks_file.write_text(json.dumps(task_list, indent = 4))
+                        print(f"Succesfully updated task {task_id} to {new_description}")
+            else:
+                print("Argument required: new description")
     else:
         print(f"{command}: command not found")
 else:
