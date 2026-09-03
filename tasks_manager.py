@@ -41,7 +41,7 @@ def delete_tasks():
 def update_tasks():
     task_id = check_ID()
     if not task_exists(task_id):
-        sys.exit()  
+        sys.exit()
     else:
         if len(sys.argv) > 3:
             new_description = sys.argv[3]
@@ -54,3 +54,22 @@ def update_tasks():
                     print(f"Successfully updated task {task_id} to {new_description}")
         else:
             print("Argument required: new description")
+
+def tasks_status():
+    task_id = check_ID()
+    if not task_exists(task_id):
+        sys.exit()  
+    else:
+        if len(sys.argv) > 3:
+            task_status = sys.argv[3]
+            if task_status != "done" and task_status != "todo":
+                print("Status not recognised: use 'done' or 'todo'")
+            else:
+                task_list = load_tasks()
+                for task in task_list:
+                    if task["id"] == task_id:
+                        task["status"] = task_status
+                        tasks_file.write_text(json.dumps(task_list, indent = 4))
+                        print(f"Successfully updated task {task_id} to  status '{task_status}'")
+        else:
+            print("Argument required: status")

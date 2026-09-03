@@ -1,7 +1,7 @@
 #import required libraries
 import sys
 
-from tasks_manager import add_tasks, list_tasks, delete_tasks, update_tasks
+from tasks_manager import add_tasks, list_tasks, delete_tasks, update_tasks, tasks_status
 
 if len(sys.argv) > 1:
     command = sys.argv[1]   #if script has a command, save it in a var called command
@@ -14,6 +14,8 @@ if len(sys.argv) > 1:
             delete_tasks()
     elif command == "update":
         update_tasks()
+    elif command == "status":
+         tasks_status()
     else:
         print(f"{command}: command not found")
 else:
