@@ -1,7 +1,7 @@
 #import required libraries
 import sys
 
-from tasks_manager import add_tasks, list_tasks, delete_tasks, update_tasks, tasks_status
+from tasks_manager import add_tasks, list_tasks, delete_tasks, update_tasks, tasks_status, list_done, list_todo
 
 if len(sys.argv) > 1:
     command = sys.argv[1]   #if script has a command, save it in a var called command
@@ -16,6 +16,10 @@ if len(sys.argv) > 1:
         update_tasks()
     elif command == "status":
          tasks_status()
+    elif command == "list-todo":
+             list_todo()
+    elif command == "list-done":
+         list_done()
     else:
         print(f"{command}: command not found")
 else:

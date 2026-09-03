@@ -15,7 +15,8 @@ def add_tasks():
             "id": new_id,
             "description": task,
             "status": "todo",
-            "createdAt": now
+            "createdAt": now,
+            "updatedAt": now
             }
         task_list.append(new_task)
         tasks_file.write_text(json.dumps(task_list, indent = 4))
@@ -48,7 +49,7 @@ def update_tasks():
             task_list = load_tasks()
             for task in task_list:
                 if task["id"] == task_id:
-                    task["createdAt"] = datetime.now().isoformat()
+                    task["updatedAt"] = datetime.now().isoformat()
                     task["description"] = new_description
                     tasks_file.write_text(json.dumps(task_list, indent = 4))
                     print(f"Successfully updated task {task_id} to {new_description}")
@@ -73,3 +74,15 @@ def tasks_status():
                         print(f"Successfully updated task {task_id} to  status '{task_status}'")
         else:
             print("Argument required: status")
+
+def list_done():
+    task_list = load_tasks()
+    for task in task_list:
+        if task["status"] == "done":
+            print(f"[{task['id']}] {task['description']} ({task['status']})")
+
+def list_todo():
+    task_list = load_tasks()
+    for task in task_list:
+        if task["status"] == "todo":
+            print(f"[{task['id']}] {task['description']} ({task['status']})")

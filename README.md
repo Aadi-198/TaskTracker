@@ -46,3 +46,15 @@ Use to update an existing task, add 'update', include task ID and then give the 
 Use to change the status of an task to 'done' or 'todo', simply add 'status', include task ID and the new status
 
 *python3 tasks_cli.py status 1 done*
+
+### List-todo
+
+Use to list tasks that have the status todo, add 'list-todo' after the base script
+
+*python3 tasks_cli.py list-todo*
+
+### List-done
+
+Use to list tasks that have the status done, add 'list-done' after the base script
+
+*python3 tasks_cli.py list-done*
