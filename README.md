@@ -40,3 +40,9 @@ Use to delete an existing task by its ID, add 'delete' and include task ID
 Use to update an existing task, add 'update', include task ID and then give the new task description
 
 *python3 tasks_cli.py update 1 corn*
+
+### Status
+
+Use to change the status of an task to 'done' or 'todo', simply add 'status', include task ID and the new status
+
+*python3 tasks_cli.py status 1 done*
